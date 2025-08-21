@@ -1,80 +1,71 @@
 "use client";
+
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { BackgroundBeamsDemo, words } from "@/components/ui/title";
 import useGetAllSales from "@/hooks/useGetAllSales";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense } from "react";
 import { Toaster } from 'react-hot-toast';
+import Image from "next/image";
 
 
-const HomePage = () => {
+import { Suspense } from "react";
+import Link from "next/link";
+
+// Static trending tokens grid component
+const TrendingTokensGrid = () => {
   const { data } = useGetAllSales();
-
-  const placeholders = [
-    "eg:$WOJAK",
-    "eg:$COPIUM",
-    "eg:$NGMI",
-    "eg:$FOMO",
-    "eg:$WAGMI",
-  ];
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
-    // debugger
-    // router.push(`/meme/?name=${username}`);
-  }
+  if (!data || data.length === 0) return null;
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="max-h-screen pt-10 h-full overflow-hidden">
-        <div className="max-w-[300px] flex items-center justify-center relative z-50 mx-auto">
-          <Image src={"/images/rocket.png"} alt="rocket" width={70} height={70} />
-          <Image src={"/images/unipump.png"} alt="pump" width={160} height={160} />
-        </div>
-        <Toaster />
-        <div className="mx-auto max-w-[500px] text-center p-4">
-          <TextGenerateEffect duration={2} filter={false} words={words} />
-        </div>
-        <TextGenerateEffect duration={2} filter={false} words={"Current Unicorn"} className="text-center md:text-3xl" />
-  {data && data.map((item) => (
-          <Link href={`/token/?address=${item.memeTokenAddress}`}
-            key={item.name}
-          >
-            <div
-              className="w-[350px] max-w-full mt-8 z-50 mx-auto relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8  md:w-[450px]"
-            >
-              <div className="flex  items-start pt-3 space-x-4 justify-between">
-                <Image src={item.imageUri} alt="Evervault" width={60} height={60} />
-                <div>
-                  <div className="flex items-center space-x-2 w-full justify-start">
-                    <div className="text-sm">Created by </div>
-                    <Image src={item.imageUri} alt="Evervault" width={14} height={14} /></div>
-                  <div className="relative z-20 mt-2 flex flex-row items-center">
-                    <span className="flex flex-col gap-1">
-                      <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                        {item.name}
-                      </span>
-                      <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                        {item.bio}
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
+    <div className="w-full max-w-7xl px-2 md:px-8 z-10 mt-8">
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Trending Tokens</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {data.filter(item => item.memeTokenAddress.toLowerCase() !== "0x0f1aa5058a58e56d99365fbab232bef578a0ad2d").map((item) => (
+          <Link href={`/token/?address=${item.memeTokenAddress}`} key={item.name}>
+            <div className="bg-zinc-900 rounded-2xl border border-slate-700 p-6 flex flex-col items-center hover:scale-105 transition-transform cursor-pointer">
+              <Image src={item.imageUri} alt={item.name} width={80} height={80} className="rounded-full mb-2" />
+              <div className="text-lg font-bold text-white">{item.symbol}</div>
+              <div className="text-sm text-gray-400">{item.name}</div>
+              <div className="text-xs text-gray-500 mt-1 text-center line-clamp-2">{item.bio}</div>
             </div>
           </Link>
         ))}
-        <BackgroundBeamsDemo />
-        <PlaceholdersAndVanishInput
-          placeholders={placeholders}
-          onChange={handleChange}
-          onSubmit={onSubmit}
-        />
+      </div>
+    </div>
+  );
+};
+
+
+
+const placeholders = [
+  "eg:$WOJAK",
+  "eg:$COPIUM",
+  "eg:$NGMI",
+  "eg:$FOMO",
+  "eg:$WAGMI",
+];
+
+const HomePage = () => {
+  // Hero section with logo and tagline
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+  <div className="relative min-h-screen flex flex-col items-center justify-center bg-site-main overflow-x-hidden">
+        <Toaster />
+        <div className="z-10 flex flex-col items-center justify-center pt-24 pb-10">
+          <div className="flex flex-col items-center mb-6">
+            <Image src="/images/unipump.png" alt="Unipump Logo" width={180} height={180} className="drop-shadow-xl" />
+            <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#ff6a00] via-[#fbc531] to-[#00c3ff] mt-4 text-center">Unipump</h1>
+            <TextGenerateEffect duration={2} filter={false} words="The fastest way to launch and trade meme tokens on Base." className="mt-4 text-center text-2xl md:text-3xl font-semibold" />
+          </div>
+          <div className="w-full max-w-xl mt-8">
+            <PlaceholdersAndVanishInput
+              placeholders={placeholders}
+              onChange={() => {}}
+              onSubmit={() => {}}
+            />
+            <p className="text-center text-gray-400 mt-2 text-sm">Enter a ticker to search tokens</p>
+          </div>
+        </div>
+  {/* Trending tokens static grid */}
+  {/* Trending tokens grid moved to /listings page */}
       </div>
     </Suspense>
   );

@@ -1,3 +1,7 @@
+/* Site-wide static background utility */
+.bg-site-main {
+  background: linear-gradient(135deg, #181824 0%, #23234b 50%, #0f3460 100%);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
