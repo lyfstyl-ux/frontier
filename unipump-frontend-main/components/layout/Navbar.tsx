@@ -6,6 +6,8 @@ import {
   Identity,
   Name,
 } from "@coinbase/onchainkit/identity";
+import { SearchBar } from "@/components/ui/search-bar";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
   ConnectWallet,
   ConnectWalletText,
@@ -20,8 +22,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAccountEffect } from "wagmi";
 import ProfileModal from "../profile/ProfileModal";
+import { NotificationBell } from "../NotificationBell";
 
-const emojis = ["👽", "🦄", "🚀"]
+const emojis = ["🚀"]
 
 const Navbar = () => {
   const [currentEmojiIndex, setCurrentEmojiIndex] = useState(0)
@@ -58,19 +61,15 @@ const Navbar = () => {
               {emojis[currentEmojiIndex]}
             </motion.div>
           </AnimatePresence>
-          <span className="font-extrabold text-xl md:text-2xl text-white tracking-tight">Unipump</span>
+          <span className="font-extrabold text-xl md:text-2xl text-white tracking-tight">CreatePump</span>
         </Link>
-        {/* Menu Links */}
-        <ul className="hidden md:flex gap-6 text-base font-semibold text-white">
-          <li><Link href="/" className="hover:text-[#ff6a00] transition-colors">Home</Link></li>
-          <li><Link href="/createtoken" className="hover:text-[#fbc531] transition-colors">Create</Link></li>
-          <li><Link href="/listings" className="hover:text-[#00c3ff] transition-colors">Listings</Link></li>
-          <li><Link href="/leaderboard" className="hover:text-[#6f42c1] transition-colors">Leaderboard</Link></li>
-          <li><Link href="/channels" className="hover:text-[#18ccfc] transition-colors">Channels</Link></li>
-          <li><Link href="/faucet" className="hover:text-[#00ffae] transition-colors">Faucet</Link></li>
-        </ul>
-        {/* Wallet Connect */}
-        <div className="flex items-center gap-2">
+        {/* Search and Actions */}
+        <div className="flex-1 flex items-center justify-end gap-4">
+          <div className="hidden md:block">
+            <SearchBar />
+          </div>
+          <ThemeToggle />
+          <NotificationBell />
           <Wallet className="relative z-50">
             <ConnectWallet withWalletAggregator className="bg-white hover:bg-white">
               <ConnectWalletText className="text-black">

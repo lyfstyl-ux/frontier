@@ -8,16 +8,13 @@ import "./globals.css";
 
 
 import { Providers } from "./providers";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { MobileFooter } from "@/components/layout/MobileFooter";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const poppinsRounded = localFont({
+  src: "../public/fonts/PoppinsRounded-Rounded.ttf",
+  variable: "--font-poppins-rounded",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppinsRounded.variable} antialiased`}
       >
         <Providers >
           {/* <div
@@ -42,7 +39,15 @@ export default function RootLayout({
           ></div> */}
           {/* Site-wide static background */}
           <div className="fixed inset-0 -z-10 bg-site-main" />
-          {children}
+          
+          {/* Sidebar and Main Content Layout */}
+          <div className="flex min-h-screen">
+            <Sidebar />
+            <main className={`flex-1 lg:ml-56 pb-24 lg:pb-8`}>
+              {children}
+            </main>
+            <MobileFooter />
+          </div>
         </Providers>
       </body>
     </html>

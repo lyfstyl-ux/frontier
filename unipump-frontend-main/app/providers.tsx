@@ -8,6 +8,7 @@ import { type ReactNode, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { type State, WagmiProvider } from 'wagmi';
 import { baseSepolia } from 'wagmi/chains'; // add baseSepolia for testing
+import { ThemeProvider } from 'next-themes';
 
 export function Providers(props: {
     children: ReactNode;
@@ -24,9 +25,11 @@ export function Providers(props: {
                     chain={baseSepolia}
                 >
                     <RainbowKitProvider modalSize="compact">
-                        <Toaster />
-                        <Navbar />
-                        {props.children}
+                        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                            <Toaster />
+                            <Navbar />
+                            {props.children}
+                        </ThemeProvider>
                     </RainbowKitProvider>
                 </OnchainKitProvider>
             </QueryClientProvider>

@@ -5,6 +5,7 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import useGetAllSales from "@/hooks/useGetAllSales";
 import { Toaster } from 'react-hot-toast';
 import Image from "next/image";
+import { ReelsSection } from "@/components/reels/ReelsSection";
 
 
 import { Suspense } from "react";
@@ -44,15 +45,14 @@ const placeholders = [
 ];
 
 const HomePage = () => {
-  // Hero section with logo and tagline
   return (
     <Suspense fallback={<div>Loading...</div>}>
-  <div className="relative min-h-screen flex flex-col items-center justify-center bg-site-main overflow-x-hidden">
+      <div className="relative min-h-screen flex flex-col items-center bg-site-main overflow-x-hidden">
         <Toaster />
+        {/* Hero Section */}
         <div className="z-10 flex flex-col items-center justify-center pt-24 pb-10">
           <div className="flex flex-col items-center mb-6">
-            <Image src="/images/unipump.png" alt="Unipump Logo" width={180} height={180} className="drop-shadow-xl" />
-            <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#ff6a00] via-[#fbc531] to-[#00c3ff] mt-4 text-center">Unipump</h1>
+            <h1 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#ff6a00] via-[#fbc531] to-[#00c3ff] mt-4 text-center">CreatePump</h1>
             <TextGenerateEffect duration={2} filter={false} words="The fastest way to launch and trade meme tokens on Base." className="mt-4 text-center text-2xl md:text-3xl font-semibold" />
           </div>
           <div className="w-full max-w-xl mt-8">
@@ -64,8 +64,12 @@ const HomePage = () => {
             <p className="text-center text-gray-400 mt-2 text-sm">Enter a ticker to search tokens</p>
           </div>
         </div>
-  {/* Trending tokens static grid */}
-  {/* Trending tokens grid moved to /listings page */}
+
+        {/* Trending Tokens Section */}
+        <TrendingTokensGrid />
+
+        {/* Reels Section */}
+        <ReelsSection />
       </div>
     </Suspense>
   );
