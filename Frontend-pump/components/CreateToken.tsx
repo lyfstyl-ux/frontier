@@ -84,7 +84,7 @@ const CreateToken = ({
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Launch Token</DialogTitle>
+                    <DialogTitle>Create a Channel coin</DialogTitle>
                     <DialogDescription>
                         Make changes to your profile here. Click save whenne.
                     </DialogDescription>
@@ -96,7 +96,7 @@ const CreateToken = ({
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Channel Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Memer" {...field} />
                                     </FormControl>
@@ -109,9 +109,9 @@ const CreateToken = ({
                             name="ticker"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Ticker</FormLabel>
+                                    <FormLabel>Channel Ticker</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="ETH" {...field} />
+                                        <Input placeholder="JONETH" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -124,7 +124,7 @@ const CreateToken = ({
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder="Type your Description here." {...field} />
+                                        <Textarea placeholder="Describe what your channel is about" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
