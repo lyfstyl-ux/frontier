@@ -1,21 +1,20 @@
 FROM node:20-slim AS base
 
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+ENV NODE_ENV=production
 
 FROM base AS prod
 
 RUN mkdir -p /app
-COPY pnpm-lock.yaml /app
 WORKDIR /app
+COPY package.json package-lock.json ./
+COPY indexer/package.json indexer/
 
-COPY . /app
-RUN pnpm install -P
-# RUN pnpm run build
+COPY indexer/ ./indexer/
+RUN npm install
+WORKDIR /app/indexer
 
-FROM prod
-COPY --from=prod /app/node_modules /app/node_modules
-# COPY --from=prod /app/dist /app/dist
+FROM base
+COPY --from=prod /app /app
+WORKDIR /app/indexer
 EXPOSE 42069
-CMD [ "pnpm", "indexer:start" ]
+CMD [ "npm", "run", "start" ]

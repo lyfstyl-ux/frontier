@@ -17,7 +17,15 @@ export function Providers(props: {
     initialState?: State;
 }) {
     const wagmiConfig = useWagmiConfig();
-    const [queryClient] = useState(() => new QueryClient());
+    const [queryClient] = useState(() => new QueryClient({
+        defaultOptions: {
+            queries: {
+                retry: 1,
+                refetchOnWindowFocus: false,
+                staleTime: 5 * 60 * 1000, // 5 minutes
+            },
+        },
+    }));
 
     return (
         <WagmiProvider config={wagmiConfig} initialState={props.initialState}>

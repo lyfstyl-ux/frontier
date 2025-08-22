@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.8",
+    "@apollo/client": "^4.0.0",
     "@coinbase/onchainkit": "^0.35.5",
     "@cred/neopop-web": "1.0.0",
     "@hookform/resolvers": "^3.9.1",
@@ -38,6 +38,7 @@
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.53.2",
     "react-hot-toast": "^2.4.1",
+    "rxjs": "^7.8.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "viem": "2.x",
