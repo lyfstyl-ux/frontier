@@ -9,8 +9,7 @@ import { Toaster } from 'react-hot-toast';
 import { type State, WagmiProvider } from 'wagmi';
 import { baseSepolia } from 'wagmi/chains'; // add baseSepolia for testing
 import { ThemeProvider } from 'next-themes';
-import { ApolloProvider } from '@apollo/client';
-import client from '@/lib/client';
+import { ApolloWrapper } from '@/lib/apollo-provider';
 
 export function Providers(props: {
     children: ReactNode;
@@ -35,13 +34,13 @@ export function Providers(props: {
                     chain={baseSepolia}
                 >
                     <RainbowKitProvider modalSize="compact">
-                        <ApolloProvider client={client}>
+                        <ApolloWrapper>
                             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                                 <Toaster />
                                 <Navbar />
                                 {props.children}
                             </ThemeProvider>
-                        </ApolloProvider>
+                        </ApolloWrapper>
                     </RainbowKitProvider>
                 </OnchainKitProvider>
             </QueryClientProvider>

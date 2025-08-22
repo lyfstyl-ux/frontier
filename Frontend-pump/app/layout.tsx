@@ -9,6 +9,7 @@ import "./globals.css";
 
 import { Providers } from "./providers";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { Header } from "@/components/layout/Header";
 import { MobileFooter } from "@/components/layout/MobileFooter";
 
 const poppinsRounded = localFont({
@@ -38,12 +39,15 @@ export default function RootLayout({
             className="absolute inset-0 h-full w-full bg-black bg-[radial-gradient(#ccc_0.5px,transparent_0.5px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_100%_100%_at_50%_50%,#000_60%,transparent_100%)]"
           ></div> */}
           {/* Site-wide static background */}
-          <div className="fixed inset-0 -z-10 bg-site-main" />
+          <div className="fixed inset-0 -z-10 bg-zinc-950" />
+          
+          {/* Header */}
+          <Header />
           
           {/* Sidebar and Main Content Layout */}
-          <div className="flex min-h-screen">
+          <div className="flex min-h-screen pt-14">
             <Sidebar />
-            <main className={`flex-1 lg:ml-56 pb-24 lg:pb-8`}>
+            <main className={`flex-1 lg:ml-64 p-6 max-w-[1720px] mx-auto`}>
               {children}
             </main>
             <MobileFooter />
