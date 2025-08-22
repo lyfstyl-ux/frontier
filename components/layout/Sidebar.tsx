@@ -45,8 +45,8 @@ export function Sidebar() {
       className={cn(
         "flex items-center px-3 py-2 mx-2 gap-3 rounded-lg transition-colors",
         pathname === item.href 
-          ? "bg-white/10 text-white" 
-          : "text-zinc-400 hover:text-white hover:bg-white/5"
+          ? "bg-primary/10 text-primary-foreground" 
+          : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
       )}
     >
       <item.icon className="w-5 h-5 flex-shrink-0" />
@@ -56,11 +56,11 @@ export function Sidebar() {
 
   return (
     <div className={cn(
-      "hidden lg:flex flex-col fixed left-0 top-14 h-[calc(100vh-3.5rem)] bg-black/70 backdrop-blur-md transition-all duration-300 z-40",
-  isCollapsed ? "w-16" : "w-48"
+      "hidden lg:flex flex-col fixed left-0 top-14 h-[calc(100vh-3.5rem)] bg-background/80 backdrop-blur transition-all duration-300 z-40",
+      isCollapsed ? "w-16" : "w-48"
     )}>
       <div className="flex flex-col flex-1 py-4">
-        <div className="pb-4 mb-4 border-b border-zinc-800">
+  <div className="pb-4 mb-4 border-b border-border">
           {primaryMenuItems.map(renderMenuItem)}
         </div>
         <div className="pb-4">
@@ -70,7 +70,7 @@ export function Sidebar() {
       <Button
         variant="ghost"
         size="icon"
-        className="absolute -right-4 top-6 w-8 h-8 rounded-full border border-zinc-800 bg-zinc-950"
+        className="absolute -right-4 top-6 w-8 h-8 rounded-full border border-border bg-card"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
         {isCollapsed ? (

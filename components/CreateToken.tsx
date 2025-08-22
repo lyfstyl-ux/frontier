@@ -55,10 +55,29 @@ const CreateToken = ({
     })
 
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        // Post channel metadata to backend before on-chain tx
+        try {
+            const res = await fetch('/api/pending-channel', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    owner: '', // TODO: Fill with connected wallet address
+                    name: values.name,
+                    symbol: values.ticker,
+                    description: values.description,
+                    twitter: values.twitter,
+                    discord: values.discord,
+                    imageUri: values.imageUri,
+                    bannerImage: '', // Optionally add banner image field
+                })
+            });
+            if (!res.ok) {
+                console.error('Failed to cache channel metadata', await res.json());
+            }
+        } catch (e) {
+            console.error('Error posting to /api/pending-channel', e);
+        }
         queryClient.invalidateQueries({ queryKey: ["getAllSales"] })
     }
 

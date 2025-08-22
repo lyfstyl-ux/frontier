@@ -28,7 +28,7 @@ export function Header() {
               priority
             />
           </div>
-          <span className="text-xl font-semibold hidden sm:inline-block">UniPump</span>
+          <span className="text-xl font-semibold hidden sm:inline-block">PumpIT</span>
         </Link>
       </div>
 
