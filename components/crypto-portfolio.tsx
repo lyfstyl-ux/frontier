@@ -42,33 +42,51 @@ const TokenComp = ({ token, userAddress, heldOnly, createdOnly }: { token: any, 
   if (heldOnly && (!data || parseFloat(data) === 0)) return null;
   if (createdOnly && token.createdBy?.toLowerCase() !== userAddress?.toLowerCase()) return null;
   return (
-    <div key={token.memeTokenAddress} className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
+    <div key={token.memeTokenAddress} className="w-full mb-4">
+      <div className="rounded-xl border border-stone-800 bg-stone-950 text-stone-50 shadow p-4 flex flex-col md:flex-row items-center gap-4">
         <Image
           src={token.imageUri}
           alt={`${token.name} icon`}
-          width={48}
-          height={48}
-          className="rounded-full"
+          width={64}
+          height={64}
+          className="rounded-full border border-stone-700"
         />
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span>{token.symbol}</span>
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="font-bold text-lg text-stone-50">{token.name}</span>
+            <span className="text-xs bg-stone-800 px-2 py-1 rounded text-stone-300">{token.symbol}</span>
           </div>
-          <div className="text-emerald-400 font-medium">
-            {data ? data : "0"} {token.symbol}
+          <div className="text-stone-400 text-xs mb-1 truncate">{token.bio}</div>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-stone-400 mb-1">
+            <span>Creator:</span>
+            <span className="bg-stone-800 px-2 py-1 rounded text-white">{token.createdBy?.slice(0, 6)}...{token.createdBy?.slice(-4)}</span>
+          </div>
+          <div className="flex gap-2 mb-1">
+            {token.twitter && <a href={token.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Twitter</a>}
+            {token.discord && <a href={token.discord} target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:underline">Discord</a>}
+          </div>
+          <div className="text-emerald-400 font-medium text-xs">
+            Balance: {data ? data : "0"} {token.symbol}
           </div>
         </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => router.push(`/token/?address=${token.memeTokenAddress}`)}
-          className="text-zinc-400 hover:text-white"
-        >
-          view coin
-        </Button>
+        <div className="flex flex-col gap-2 min-w-[120px]">
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => router.push(`/token/?address=${token.memeTokenAddress}&tab=buy`)}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+          >
+            BUY
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => router.push(`/token/?address=${token.memeTokenAddress}`)}
+            className="text-zinc-400 hover:text-white"
+          >
+            View Coin
+          </Button>
+        </div>
       </div>
     </div>
   );
