@@ -1,5 +1,4 @@
 "use client"
-import Navbar from '@/components/layout/Navbar';
 import { useWagmiConfig } from '@/wagmi';
 import { OnchainKitProvider } from '@coinbase/onchainkit';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
@@ -37,7 +36,7 @@ export function Providers(props: {
                         <ApolloWrapper>
                             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                                 <Toaster />
-                                <Navbar />
+                                {/* Navbar removed, features migrated to Header */}
                                 {props.children}
                             </ThemeProvider>
                         </ApolloWrapper>

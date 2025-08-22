@@ -5,9 +5,13 @@ import { Search, Menu, Bell, Video, Mic } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { NotificationBell } from "@/components/NotificationBell";
+import ProfileModal from "@/components/profile/ProfileModal";
+import { useState } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function Header() {
+  const [profileOpen, setProfileOpen] = useState(false);
   return (
     <header className="fixed top-0 left-0 right-0 h-14 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border flex items-center px-4 gap-4 z-50">
       <div className="flex items-center gap-4 min-w-[200px]">
@@ -49,12 +53,14 @@ export function Header() {
         <Button variant="ghost" size="icon" className="rounded-full hidden sm:flex">
           <Video className="w-4 h-4" />
         </Button>
-        <Button variant="ghost" size="icon" className="rounded-full hidden sm:flex">
-          <Bell className="w-4 h-4" />
-        </Button>
+        <NotificationBell />
         <div className="h-8">
           <ConnectButton />
         </div>
+        <Button variant="ghost" size="icon" className="rounded-full hidden sm:flex" onClick={() => setProfileOpen(true)}>
+          <Image src="/public/nfts/1.jpeg" alt="Profile" width={32} height={32} className="rounded-full object-cover" />
+        </Button>
+        <ProfileModal open={profileOpen} setOpen={setProfileOpen} />
       </div>
     </header>
   );

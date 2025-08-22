@@ -57,7 +57,7 @@ export function Sidebar() {
   return (
     <div className={cn(
       "hidden lg:flex flex-col fixed left-0 top-14 h-[calc(100vh-3.5rem)] bg-black/70 backdrop-blur-md transition-all duration-300 z-40",
-      isCollapsed ? "w-16" : "w-64"
+  isCollapsed ? "w-16" : "w-48"
     )}>
       <div className="flex flex-col flex-1 py-4">
         <div className="pb-4 mb-4 border-b border-zinc-800">
