@@ -1,0 +1,110 @@
+
+"use client";
+
+const resourcesMenuItems = [
+  { name: "Doc", href: "/doc" },
+  { name: "About", href: "/about" },
+  { name: "Partnership", href: "/partnership" },
+];
+
+
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { 
+  Home, 
+  Plus, 
+  BarChart2, 
+  Trophy, 
+  Film, 
+  Droplet,
+  ChevronLeft,
+  ChevronRight
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+
+const primaryMenuItems = [
+  { name: "Home", icon: Home, href: "/" },
+  { name: "Create", icon: Plus, href: "/createtoken" },
+  { name: "Listings", icon: BarChart2, href: "/listings" },
+];
+
+const secondaryMenuItems = [
+  { name: "Leaderboard", icon: Trophy, href: "/leaderboard" },
+  { name: "Reels", icon: Film, href: "/reels" },
+  { name: "Faucet", icon: Droplet, href: "/faucet" },
+];
+
+interface MenuItem {
+  name: string;
+  icon: React.ComponentType<any>;
+  href: string;
+}
+
+export function Sidebar() {
+  const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const renderMenuItem = (item: MenuItem) => (
+    <Link 
+      key={item.href} 
+      href={item.href}
+      className={cn(
+        "flex items-center px-3 py-2 mx-2 gap-3 rounded-lg transition-colors",
+        pathname === item.href 
+          ? "bg-primary/10 text-primary-foreground" 
+          : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+      )}
+    >
+      {item.icon && <item.icon className="w-5 h-5 flex-shrink-0" />}
+      {!isCollapsed && <span className="text-sm font-medium">{item.name}</span>}
+    </Link>
+  );
+
+  return (
+    <div className={cn(
+      "hidden lg:flex flex-col fixed left-0 top-14 h-[calc(100vh-3.5rem)] bg-background/80 backdrop-blur transition-all duration-300 z-40",
+      isCollapsed ? "w-16" : "w-48"
+    )}>
+      <div className="flex flex-col flex-1 py-4">
+        <div className="pb-4 mb-4 border-b border-border">
+          {primaryMenuItems.map(renderMenuItem)}
+        </div>
+        <div className="pb-4">
+          {secondaryMenuItems.map(renderMenuItem)}
+        </div>
+        <div className="pt-2 mt-2 border-t border-border">
+          {!isCollapsed && <div className="px-4 pb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Resources</div>}
+          {resourcesMenuItems.map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center px-3 py-2 mx-2 gap-3 rounded-lg transition-colors",
+                pathname === item.href
+                  ? "bg-primary/10 text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+              )}
+            >
+              {!isCollapsed && <span className="text-sm font-medium">{item.name}</span>}
+            </Link>
+          ))}
+        </div>
+      </div>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute -right-4 top-6 w-8 h-8 rounded-full border border-border bg-card"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        {isCollapsed ? (
+          <ChevronRight className="w-4 h-4" />
+        ) : (
+          <ChevronLeft className="w-4 h-4" />
+        )}
+      </Button>
+    </div>
+  );
+}
